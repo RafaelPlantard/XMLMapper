@@ -77,7 +77,13 @@ extension Dictionary {
         var nodes: [String] = []
         
         comments?.forEach({ (comment: String) in
+            #if os(Linux)
+            comment.xmlEncodedString.withCString { xmlEncodedString in
+                nodes.append(String(format: "<!--%@-->", xmlEncodedString))
+            }
+            #else
             nodes.append(String(format: "<!--%@-->", comment.xmlEncodedString))
+            #endif
         })
         
         if nodesOrder?.isEmpty == false {

@@ -7,6 +7,10 @@
 
 import Foundation
 
+#if os(Linux)
+import FoundationXML
+#endif
+
 enum XMLObjectParserAttributesMode {
     case prefixed
     case dictionary

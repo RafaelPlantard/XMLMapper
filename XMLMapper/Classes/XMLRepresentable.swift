@@ -25,8 +25,26 @@ extension Array: XMLRepresentable {
 
 extension NSDictionary: XMLRepresentable {
     var xmlString: String {
+        #if os(Linux)
+        return linuxDictionary.xmlString
+        #else
         return (self as Dictionary).xmlString
+        #endif
     }
+
+    #if os(Linux)
+    var linuxDictionary: Dictionary<String, Any> {
+        var dictionary = Dictionary<String, Any>()
+
+        allKeys.forEach { key in
+            if let key = key as? String, let value = value(forKey: key) {
+                dictionary[key] = value
+            }
+        }
+
+        return dictionary
+    }
+    #endif
 }
 
 extension NSArray: XMLRepresentable {
