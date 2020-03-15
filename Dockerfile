@@ -1,7 +1,8 @@
-FROM swift:latest as builder
+FROM swift:5.1.1 as builder
 WORKDIR /root
 COPY . .
 RUN swift build -c release
+RUN swift test -v
 
 FROM swift:slim
 WORKDIR /root
