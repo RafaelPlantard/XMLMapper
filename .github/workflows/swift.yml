@@ -12,6 +12,10 @@ jobs:
     runs-on: ubuntu-18.04
 
     steps:
+    - name: Setup Swift environment
+      uses: fwal/setup-swift@v0.1.0
+      with:
+        swift-version: 5.1.3
     - uses: actions/checkout@v2
     - name: Build
       run: swift build -v
